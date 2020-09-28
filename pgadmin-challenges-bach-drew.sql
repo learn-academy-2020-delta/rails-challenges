@@ -100,3 +100,116 @@ FROM country
 WHERE population > 0
 ORDER BY population DESC
 LIMIT 1;
+
+-- Subqueries: WITH
+
+-- What are the forms of government for the top ten countries by surface area? (HINT: Number 10 is Kazakstan)
+WITH top_ten AS (
+	SELECT name, surfacearea, governmentform
+	FROM country
+	WHERE surfacearea > 0
+)
+SELECT name, governmentform
+FROM top_ten
+ORDER BY surfacearea DESC
+LIMIT 10;
+
+-- What are the forms of government for the top ten richest nations by gnp?
+WITH top_ten AS (
+	SELECT name, gnp, governmentform
+	FROM country
+)
+SELECT name, governmentform, gnp
+FROM top_ten
+ORDER BY gnp DESC
+LIMIT 10;
+
+-- Aggregate Functions: GROUP BY
+
+-- Which region has the highest average gnp? (HINT: North America)
+SELECT region, AVG(gnp)
+FROM country
+GROUP BY region
+ORDER BY avg DESC
+LIMIT 1;
+
+-- Who is the most influential head of state measured by population? (HINT: Jiang Zemin)
+SELECT headofstate, MAX(population)
+FROM country
+GROUP BY headofstate
+ORDER BY max DESC
+LIMIT 1;
+
+-- Who is the most influential head of state measured by surface area? (HINT: Elisabeth II)
+SELECT headofstate, SUM(surfacearea)
+FROM country
+GROUP BY headofstate
+ORDER BY sum DESC;
+
+-- What is the average life expectancy for all continents?
+SELECT continent, AVG(lifeexpectancy)
+FROM country
+GROUP BY continent
+ORDER BY avg DESC;
+
+-- What are the most common forms of government? (HINT: use count(*))
+SELECT governmentform, COUNT(*)
+FROM country
+GROUP BY governmentform
+ORDER BY count DESC;
+
+-- How many countries are in North America?
+SELECT continent, COUNT(name)
+FROM country
+WHERE continent = 'North America'
+GROUP BY continent
+ORDER BY count;
+
+-- What is the total population of all continents?
+SELECT continent, SUM(population)
+FROM country
+GROUP BY continent
+ORDER BY sum DESC;
+
+
+-- Stretch Challenges
+
+-- Which countries have the letter ‘z’ in the name? How many?
+SELECT name
+FROM country
+WHERE name LIKE '%z%';
+
+-- Of the smallest 10 countries by area, which has the biggest gnp? (HINT: Macao)
+WITH top_ten_area AS (
+	SELECT name, surfacearea, gnp
+	FROM country
+	ORDER BY surfacearea
+	LIMIT 10
+	)
+SELECT name, gnp
+FROM top_ten_area
+ORDER BY gnp DESC
+LIMIT 1;
+
+-- Of the smallest 10 countries by population, which has the biggest per capita gnp?
+WITH top_ten_area AS (
+	SELECT name, population, gnp
+	FROM country
+	ORDER BY population
+	LIMIT 10
+	)
+SELECT name, gnp
+FROM top_ten_area
+ORDER BY gnp DESC
+LIMIT 1;
+
+-- Of the biggest 10 countries by area, which has the biggest gnp?
+
+
+-- Of the biggest 10 countries by population, which has the biggest per capita gnp?
+
+
+-- What is the sum of surface area of the 10 biggest countries in the world? The 10 smallest?
+
+
+-- What year is this country database from? Cross reference various pieces of information to determine the age
