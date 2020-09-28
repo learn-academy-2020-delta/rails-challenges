@@ -19,6 +19,8 @@ SELECT name, governmentform, indepyear FROM country WHERE governmentform LIKE '%
 SELECT name, governmentform, indepyear FROM country WHERE governmentform NOT LIKE '%epublic' AND indepyear > 1945
 -- returns countries with a non-epublican govt and achieved independence after 1945
 
+
+-- ORDER BY 
 SELECT lifeexpectancy, country FROM country ORDER BY lifeexpectancy LIMIT 15;
 -- Which fifteen countries have the lowest life expectancy?
 
@@ -60,3 +62,37 @@ FROM country
 WHERE population > 0
 ORDER by population DESC
 -- Which is the biggest country, by area and population (first by area - 1.70754e+07, then by population - 1277558000)?
+
+
+
+-- WITH 
+WITH big_countries AS (
+	SELECT name, surfacearea, governmentform 
+	FROM country  
+)
+
+SELECT governmentform, name 
+FROM big_countries
+ORDER BY surfacearea DESC
+LIMIT 10;
+-- top ten countries based on surfacearea and their government.
+
+WITH rich_countries AS (
+	SELECT name, gnp, governmentform 
+	FROM country  
+)
+
+SELECT governmentform, name 
+FROM rich_countries
+ORDER BY gnp DESC
+LIMIT 10;
+-- top 10 richest countries and their government.
+
+
+
+-- GROUP BY
+SELECT region, AVG(gnp) AS averagegnp 
+FROM country
+GROUP BY region 
+ORDER BY averagegnp DESC
+LIMIT 1;
