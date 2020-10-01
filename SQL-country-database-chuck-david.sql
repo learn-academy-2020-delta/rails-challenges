@@ -96,3 +96,4 @@ FROM country
 GROUP BY region 
 ORDER BY averagegnp DESC
 LIMIT 1;
+-- returns region with highest avg gnp
