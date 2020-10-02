@@ -17,4 +17,26 @@ class MainController < ApplicationController
     render "divisible.html.erb"
   end
 
+  def letter_nums
+    @letter_nums = params[:letter].length
+    render "letter_nums.html.erb"
+  end
+
+  def palindrome
+    if params[:word] == params[:word].reverse
+      @palindrome = "is a palindrome"
+    else
+      @palindrome = "nah"
+    end
+    render "palindrome.html.erb"
+  end
+
+  def short_story
+    @noun = params[:noun]
+    @verb = params[:verb]
+    @adjective = params[:adjective]
+    @adverb = params[:adverb]
+    @sentence = "The #{params[:noun]} #{params[:adverb]} #{params[:verb]} and it was a #{params[:adjective]} day."
+    render "short_story.html.erb"
+  end
 end
