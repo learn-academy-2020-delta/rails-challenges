@@ -8,17 +8,20 @@ class BlogController < ApplicationController
     end
 
     def new
+      @blog = Blog.new
     end
 
     def create
         @blog = Blog.create(
-            title: params[:title],
-            content: params[:content]
-        ) 
+            blog_params
+        )
         if @blog.valid?
             redirect_to blogs_path
         else
-            redirect_to new_blog
+           # @blog.errors.messages => {:title=>["can't be blank", "title is not unique", "is too short (minimum is 10 characters)"]}
+           flash.now[:alert] = "Title: Must be unique and 10 characters long!"
+           redirect_to new_blogs_path
+            # redirect_to blogs_path
         end
     end
 
@@ -46,4 +49,9 @@ class BlogController < ApplicationController
 
     def edit
     end
+
+    private
+      def blog_params
+        params.require(:blog).permit(:title, :content)
+      end
 end

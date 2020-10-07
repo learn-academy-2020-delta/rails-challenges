@@ -1,8 +1,13 @@
 <h1>Create Blog Post</h1>
-<%= form_with url: '/blogs', :class => 'form', local:true do |form| %>
+<%= form_with model:@blog, :class => 'form', local:true do |form| %>
     <%= form.label :title, "Title of Blog: "%>
     <%= form.text_field :title%>
     <br>
+    <% flash.each do |type, msg| %>
+      <div>
+        <%= msg %>
+      </div>
+    <% end %>
     <br>
     <%= form.label :content, "What's on your mind?: "%>
     <%= form.text_field :content%>
