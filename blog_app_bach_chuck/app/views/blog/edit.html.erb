@@ -1,5 +1,5 @@
 <h1>Edit Blog Post</h1>
-<%= form_with url: "/blogs/#{params[:id]}", method: "patch", local:true do |form| %>
+<%= form_with url: "/blogs/#{params[:id]}", method: "patch", :class => "form", local:true do |form| %>
     <%= form.label :title%>
     <%= form.text_field :title%>
     
@@ -11,4 +11,4 @@
     <%= form.submit :submit %>
 <% end %>
 
-<p>Back To <%= link_to 'All the Blogs', blogs_path %></p>
+<p class="home">Back To <%= link_to 'All the Blogs', blogs_path %></p>

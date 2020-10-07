@@ -1,14 +1,14 @@
 <h1>Create Blog Post</h1>
-<%= form_with url: '/blogs', local:true do |form| %>
-    <%= form.label :title%>
+<%= form_with url: '/blogs', :class => 'form', local:true do |form| %>
+    <%= form.label :title, "Title of Blog: "%>
     <%= form.text_field :title%>
-    
     <br>
-    <%= form.label :content, "What's on your mind?"%>
+    <br>
+    <%= form.label :content, "What's on your mind?: "%>
     <%= form.text_field :content%>
-    
     <br>
-    <%= form.submit :submit %>
+    <br>
+    <%= form.submit :submit, :class => 'submit' %>
 <% end %>
 
-<p>Back To <%= link_to 'All the Blogs', blogs_path %></p>
+<p class="home">Back To <%= link_to 'All the Blogs', blogs_path %></p>
